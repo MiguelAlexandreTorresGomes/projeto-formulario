@@ -1,16 +1,35 @@
-<div class="login-container">
+<div class="pages-container mb-5">
     <div class="form-card">
         <div class="mb-5">
             <h2>Selecione seu plano</h2>
             <h6>Você tem a opção de cobrança mensal ou anual.</h6>
         </div>
-        <div>
-            <p *ngFor="let plano of planos"><img [src]="plano.image">,{{plano.name}},{{plano.value}}</p>
+        <div class="plans-container">
+
+
+            <tr *ngFor="let plano of planos" class="plan">
+                <td><img [src]="plano.image" width="40px" height="40px"></td>
+                <td class="plan-name mt-5">{{plano.name}}</td>
+                <h6>${{plano.value}}</h6>
+            </tr>
+
+            
         </div>
+
+        <div class="time-change justify-content-center ">
+            <div class="grid d-flex justify-content-center align-items-center  ">
+                <div class="">Mensal</div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="billing-toggle" style="display: none;">
+                    <span class="slider"></span>
+                </label>
+                <div class="">Anual</div>
+            </div>
+        </div>
+
+        <!-- <div class="position-relative button-next-step">
+            <a href="/addons">
+                <button class="btn btn-primary position-absolute bottom-0 end-0">Proxima etapa</button>
+            </a>
+        </div> -->
     </div>
-    <div class="position-relative button-next-step">
-        <a href="/addons">
-            <button class="btn btn-primary position-absolute bottom-0 end-0">Proxima etapa</button>
-        </a>
-    </div>
-</div>

@@ -6,6 +6,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             width: 50%;
             min-height: 600px;
+            max-height: 600px;
             overflow: hidden;
             gap: 30px;
             border: 10px solid white;

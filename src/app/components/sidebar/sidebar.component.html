@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container position-absolute start-50 translate-middle" style="top: 25%;">
     <div class="sidebar">
         <div class="step">
             <div class="step-number">1</div>
@@ -29,14 +29,20 @@
             <div>
                 <span class="step-info">etapa 4</span>
                 <br>
-                <span class="step-info-span">sumario</span>
+                <span class="step-info-span">confirmação</span>
             </div>
         </div>
     </div>
 
     <div class="content-screen">
         <div>
-                <router-outlet></router-outlet>
+            <router-outlet></router-outlet>
         </div>
+        <a [href]="">
+            <button class="btn btn-primary position-absolute top-100 translate-middle"
+                style="left: 83%!important; top: 92%!important; width:20%;">Proxima
+                etapa</button>
+        </a>
     </div>
+
 </div>

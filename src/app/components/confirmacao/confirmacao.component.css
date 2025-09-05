@@ -1,0 +1,12 @@
+    .summary-box {
+      background: #f8f9fe;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 14px;
+    }

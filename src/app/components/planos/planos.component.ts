@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { PlanosModel } from './planos.model';
 
 @Component({
   selector: 'app-planos',
@@ -9,21 +10,20 @@ import { Component } from '@angular/core';
   styleUrl: './planos.component.css'
 })
 export class PlanosComponent {
-
-  planos = [{
+  planos: PlanosModel[] = [{
     id: 1,
-    image: "https://drive.google.com/file/d/142nCgPTYV6F4f9FQx8vVW5cku8Bw7zXW/view?usp=sharing",
-    name: "teste",
-    value: 5,
+    image: 'assets/icons/icon-advanced.svg',
+    name: "Arcade",
+    value: 9,
   }, {
-    id: 1,
-    image: "assets/images/icon-arcade.svg",
-    name: "teste",
-    value: 5,
+    id: 2,
+    image: 'assets/icons/icon-arcade.svg',
+    name: "Advanced",
+    value: 12,
   }, {
-    id: 1,
-    image: "assets/images/icon-arcade.svg",
-    name: "teste",
-    value: 5,
+    id: 3,
+    image: 'assets/icons/icon-pro.svg',
+    name: "Pro",
+    value: 15,
   }]
 }

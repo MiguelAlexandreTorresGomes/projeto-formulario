@@ -12,19 +12,31 @@ import { NavigationService } from '../../services/navigation.service';
 })
 export class ConfirmacaoComponent {
   user: User | null = null;
-  totalPrice: number = 0;
+  // totalPrice: number = 0;
 
   constructor(private userService: UserService, private navigationService: NavigationService) { }
 
   ngOnInit(): void {
-    this.userService.user$.subscribe(user => {
-      this.user = user;
-      this.totalPrice = this.userService.getTotalPrice();
-    });
-
+    this.user = this.userService.getUser();
+    if (!this.user) {
+      this.user = new User();
+      this.userService.setUser(this.user);
+    }
+    console.log('Usuário recebido na tela de confirmacao:', this.user);
   }
   changePlan() {
     this.navigationService.navigateToStep(2);
+  }
+  getTotalPrice(){
+    if (!this.user || !this.user.planos) return 0;
+
+    const planoPrice = this.user.isAnnual ? this.user.planos.priceAnnual : this.user.planos.monthlyPrice;
+    const addonsPrice = this.user.addons?.reduce(
+      (total, a) => total + (this.user.isAnnual ? a.priceAnnual : a.monthlyPrice),
+      0
+    ) ?? 0;
+
+    return planoPrice + addonsPrice;
   }
 
 }

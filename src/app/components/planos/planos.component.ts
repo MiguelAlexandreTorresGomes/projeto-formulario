@@ -1,29 +1,52 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { PlanosModel } from './planos.model';
+import { Component, OnInit } from '@angular/core';
+import { Planos } from '../../models/planos/planos.model';
+import { User } from '../../models/user/user.model';
+import { UserService } from '../../services/user.service';
+import { PlanosService } from '../../services/planos.service';
 
 @Component({
   selector: 'app-planos',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './planos.component.html',
-  styleUrl: './planos.component.css'
+  styleUrls: ['./planos.component.css']
 })
-export class PlanosComponent {
-  planos: PlanosModel[] = [{
-    id: 1,
-    image: 'assets/icons/icon-advanced.svg',
-    name: "Arcade",
-    value: 9,
-  }, {
-    id: 2,
-    image: 'assets/icons/icon-arcade.svg',
-    name: "Advanced",
-    value: 12,
-  }, {
-    id: 3,
-    image: 'assets/icons/icon-pro.svg',
-    name: "Pro",
-    value: 15,
-  }]
+export class PlanosComponent implements OnInit {
+
+  user: User | null = null;
+
+  planos: Planos[] = [
+    new Planos(1, 'assets/icons/icon-arcade.svg', "Arcade", 9, 90),
+    new Planos(2, 'assets/icons/icon-pro.svg', "Pro", 12, 120),
+    new Planos(3, 'assets/icons/icon-premium.svg', "Premium", 15, 150)
+  ];
+
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.user = this.userService.getUser();
+    if (!this.user) {
+      this.user = new User();
+      this.userService.setUser(this.user);
+    }
+    console.log('Usuário recebido na tela de planos:', this.user);
+  }
+
+  toggleBilling() {
+    if (!this.user) return;
+    this.user.isAnnual = !this.user.isAnnual;
+    this.userService.setUser(this.user);
+  }
+  selecionarPlano(plano: Planos) {
+    if (!this.user) return;
+    this.user.planos = plano;
+    this.userService.setUser(this.user);
+
+    console.log('User atualizado:', this.user);
+  }
+   getPlanoPrice(plano: Planos): number {
+    return this.user?.isAnnual ? plano.priceAnnual : plano.monthlyPrice;
+  }
+
 }

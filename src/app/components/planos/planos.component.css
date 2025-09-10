@@ -20,7 +20,19 @@
     display: flex;
 
 }
+.plan:hover {
+  border: 1px solid #4D4A8C;
+  transform: scale(1.02);
+}
 
+.plan:active {
+  border: 1px solid #4D4A8C; 
+  transform: scale(0.98);
+}
+
+.plan.selecionado {
+  border: 1px solid #4D4A8C;
+}
 .time-change {
     background-color: #d6d9e65b;
     border-radius: 10px;
@@ -65,4 +77,14 @@ input:checked+.slider:before {
 }
 .grid{
     gap: 10%;
+}
+
+.type-payment-selected{
+  font-weight: 700;
+  color: #0A3459; 
+}
+
+.type-payment-notselected {
+  font-weight: 400;
+  color: #A0A0A0; 
 }

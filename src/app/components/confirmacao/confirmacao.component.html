@@ -1,36 +1,44 @@
 <div class="pages-container mb-5">
-    <div class="form-card">
-        <div class="mb-5">
-            <h2>Finalizando</h2>
-            <h6>Verifique novamente se tudo está OK antes de confirmar</h6>
-        </div>
-
-
-
-
-        <div class="summary-box">
-            <div *ngFor="let plano of planos" style="font-weight: 700; color: #0A3459;" class="plan mb-3 d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <div>{{plano.name}}</div>
-                    <!-- <div>Change</div> -->
-                </div>
-                <div>${{plano.value}}</div>
-            </div>
-
-            <hr>
-            <!-- servicos extras -->
-            <div *ngFor="let servico of servicos" class="plan mb-3 d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <h6>{{servico.name}}</h6>
-                </div>
-                <span>+${{servico.value}}</span>
-            </div>
-        </div>
-
-        <!-- valor total soma -->
-        <div class="total">
-            <h6>Total</h6>
-            <span style="color: #3b318d; font-weight: 600; font-size: 24px;">+${{total}}</span>
-        </div>
+  <div class="form-card">
+    <div class="mb-5">
+      <h2>Finalizando</h2>
+      <h6>Verifique novamente se tudo está OK antes de confirmar</h6>
     </div>
+
+    <div class="summary-box">
+      <!-- Plano selecionado -->
+      <div *ngIf="user?.planos" 
+           class="plan mb-3 d-flex justify-content-between align-items-center"
+           style="font-weight: 700; color: #0A3459;">
+        <div class="d-flex flex-column">
+          <div>{{ user.planos.name }} ({{ user.isAnnual ? 'anual' : 'mensal' }})</div>
+           <span (click)="changePlan()" style="font-weight: 400; color: #3b318d; font-size: 14px; text-decoration: underline;">
+      Escolha
+           </span>
+        </div>
+        <div>
+          ${{ user.isAnnual ? user.planos.priceAnnual : user.planos.monthlyPrice }}/{{ user.isAnnual ? 'ano' : 'mês' }}
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- Serviços extras -->
+      <div *ngFor="let servico of user?.addons"
+           class="plan mb-3 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <h6>{{ servico.name }}</h6>
+        </div>
+        <span>
+          +${{ user.isAnnual ? servico.priceAnnual : servico.monthlyPrice }}/{{ user.isAnnual ? 'ano' : 'mês' }}</span>
+      </div>
+    </div>
+
+<div class="total mt-4">
+      <h6>Total (por {{ user.isAnnual ? 'ano' : 'mês' }})</h6>
+      <span style="color: #3b318d; font-weight: 600; font-size: 24px;">
+        ${{ totalPrice }}/{{ user?.isAnnual ? 'ano' : 'mês' }}
+      </span>
+    </div>
+  </div>
 </div>

@@ -4,18 +4,49 @@
             <h2>Informações Pessoais</h2>
             <h6>Por favor, forneça o seu nome, endereço de e-mail e número de telefone.</h6>
         </div>
-        <div>
-            <h5>Nome</h5>
-            <input type="text" class="form-control mb-4" placeholder="Seu nome completo">
-        </div>
-        <div>
-            <h5>Endereço de e-mail</h5>
-            <input type="text" class="form-control mb-4" placeholder="seu@email.com">
-        </div>
-        <div>
-            <h5>Numero de telefone</h5>
-            <input type="text" class="form-control" placeholder="(00) 00000-0000">
-        </div>
+        <form [formGroup]="userForm">
+            <!-- Nome -->
+            <div>
+                <div class="d-flex justify-content-between">
+                    <h5>Nome</h5>
+                    <h5 class="text-danger mb-0"
+                        *ngIf="userForm.get('name')?.invalid && (userForm.get('name')?.dirty || userForm.get('name')?.touched)">
+                        {{ getErrorMessage(userForm.get('name')) }}
+                    </h5>
+                </div>
+                <input type="text" class="form-control mb-4" placeholder="ex: Fulano da Silva" formControlName="name"
+                    [ngClass]="{ 'is-invalid': userForm.get('name')?.invalid && (userForm.get('name')?.dirty || userForm.get('name')?.touched) }">
+            </div>
+
+            <!-- Email -->
+            <div>
+                <div class="d-flex justify-content-between">
+                    <h5>Email</h5>
+                    <h5 class="text-danger mb-0"
+                        *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched)">
+                        {{ getErrorMessage(userForm.get('email')) }}
+                    </h5>
+                </div>
+                <input type="email" class="form-control mb-4" placeholder="ex: fulano@email.com" formControlName="email"
+                    [ngClass]="{ 'is-invalid': userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched) }">
+            </div>
+
+            <!-- Telefone -->
+            <div>
+                <div class="d-flex justify-content-between">
+                    <h5>Telefone</h5>
+                    <h5 class="text-danger mb-0"
+                        *ngIf="userForm.get('phoneNumber')?.invalid && (userForm.get('phoneNumber')?.dirty || userForm.get('phoneNumber')?.touched)">
+                        {{ getErrorMessage(userForm.get('phoneNumber')) }}
+                    </h5>
+                </div>
+                <input type="text" class="form-control mb-4" placeholder="ex: (31) 99999-9999"
+                    formControlName="phoneNumber"
+                    [ngClass]="{ 'is-invalid': userForm.get('phoneNumber')?.invalid && (userForm.get('phoneNumber')?.dirty || userForm.get('phoneNumber')?.touched) }">
+            </div>
+
+        </form>
+
 
     </div>
     <!-- <div class="position-relative button-next-step">

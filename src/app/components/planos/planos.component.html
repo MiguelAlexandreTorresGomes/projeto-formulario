@@ -7,23 +7,26 @@
         <div class="plans-container">
 
 
-            <tr *ngFor="let plano of planos" class="plan">
+            <div class="plan" *ngFor="let plano of planos" (click)="selecionarPlano(plano)"
+                [ngClass]="{'selecionado': user?.planos?.id === plano.id}">
                 <td><img [src]="plano.image" width="40px" height="40px"></td>
                 <td class="plan-name mt-5">{{plano.name}}</td>
-                <h6>${{plano.value}}</h6>
-            </tr>
+                <h6>${{getPlanoPrice(plano)}}/{{ user?.isAnnual ? 'ano' : 'mês' }}</h6>
+                <h6 style="color: #0A3459!important; font-size: 15px!important;">{{ user?.isAnnual ? '2 mês de graça' : ''}}</h6>
+            </div>
 
-            
+
         </div>
 
         <div class="time-change justify-content-center ">
             <div class="grid d-flex justify-content-center align-items-center  ">
-                <div class="">Mensal</div>
+                <div [ngClass]="{'type-payment-selected': !user?.isAnnual, 'type-payment-notselected': user?.isAnnual}">Mensal</div>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="billing-toggle" style="display: none;">
+                    <input type="checkbox" id="billing-toggle" style="display: none;" (change)="toggleBilling()"
+                        [checked]="user?.isAnnual">
                     <span class="slider"></span>
                 </label>
-                <div class="">Anual</div>
+                <div [ngClass]="{'type-payment-selected': user?.isAnnual, 'type-payment-notselected': !user?.isAnnual}">Anual</div>
             </div>
         </div>
 

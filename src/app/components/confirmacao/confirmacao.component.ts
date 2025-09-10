@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { PlanosModel } from '../planos/planos.model';
-import { AddonsModel } from '../addons/addons.model';
-
+import { User } from '../../models/user/user.model';
+import { UserService } from '../../services/user.service';
+import { NavigationService } from '../../services/navigation.service';
 @Component({
   selector: 'app-confirmacao',
   standalone: true,
@@ -11,25 +11,20 @@ import { AddonsModel } from '../addons/addons.model';
   styleUrl: './confirmacao.component.css'
 })
 export class ConfirmacaoComponent {
+  user: User | null = null;
+  totalPrice: number = 0;
 
-   get total(): number {
-    const planos = this.planos.reduce((acc, p) => acc + p.value, 0);
-    const servicos = this.servicos.reduce((acc, s) => acc + s.value, 0);
-    return planos + servicos;
+  constructor(private userService: UserService, private navigationService: NavigationService) { }
+
+  ngOnInit(): void {
+    this.userService.user$.subscribe(user => {
+      this.user = user;
+      this.totalPrice = this.userService.getTotalPrice();
+    });
+
+  }
+  changePlan() {
+    this.navigationService.navigateToStep(2);
   }
 
-  planos: PlanosModel[] = [{
-    id: 1,
-    image: 'assets/icons/icon-advanced.svg',
-    name: "Arcade",
-    value: 9,
-  }
-  ];
-
-  servicos: AddonsModel[] = [{
-    id: 3,
-    name: 'Perfil Customizavel',
-    info: "Tema customizado para o seu perfil",
-    value: 9,
-  }]
 }

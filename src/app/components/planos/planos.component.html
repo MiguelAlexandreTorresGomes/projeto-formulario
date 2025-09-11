@@ -9,7 +9,7 @@
 
             <div class="plan" *ngFor="let plano of planos" (click)="selecionarPlano(plano)"
                 [ngClass]="{'selecionado': user?.planos?.id === plano.id}">
-                <td><img [src]="plano.image" width="40px" height="40px"></td>
+                <td><img [src]="plano.image" [alt]="plano.name" width="40px" height="40px"></td>
                 <td class="plan-name mt-5">{{plano.name}}</td>
                 <h6>${{getPlanoPrice(plano)}}/{{ user?.isAnnual ? 'ano' : 'mês' }}</h6>
                 <h6 style="color: #0A3459!important; font-size: 15px!important;">{{ user?.isAnnual ? '2 mês de graça' : ''}}</h6>

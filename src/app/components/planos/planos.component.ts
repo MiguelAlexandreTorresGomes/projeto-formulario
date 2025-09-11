@@ -16,11 +16,11 @@ export class PlanosComponent implements OnInit {
 
   user: User | null = null;
 
-  planos: Planos[] = [
-    new Planos(1, 'assets/icons/icon-arcade.svg', "Arcade", 9, 90),
-    new Planos(2, 'assets/icons/icon-pro.svg', "Pro", 12, 120),
-    new Planos(3, 'assets/icons/icon-premium.svg', "Premium", 15, 150)
-  ];
+planos: Planos[] = [
+  new Planos(1, 'assets/icons/icon-arcade.svg', "Arcade", 9, 90),
+  new Planos(2, 'assets/icons/icon-pro.svg', "Pro", 12, 120),
+  new Planos(3, 'assets/icons/icon-advanced.svg', "Advanced", 15, 150)
+];
 
   constructor(private userService: UserService) { }
 

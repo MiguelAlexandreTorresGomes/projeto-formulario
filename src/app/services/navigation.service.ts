@@ -54,7 +54,6 @@ export class NavigationService {
     return this.currentStep === stepNumber;
   }
 
-  // 👇 aqui estavam os erros
   isFirstStep(): boolean {
     return this.currentStep === 1;
   }

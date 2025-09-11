@@ -21,12 +21,12 @@
     <!-- Botão Voltar -->
     <button *ngIf="!navigationService.isFirstStep()" (click)="navigationService.previousStep()"
       class="position-absolute top-100 translate-middle"
-      style="left: 53%!important; top: 92%!important; width:20%; border: none; background-color:transparent; color: rgba(0, 0, 0, 0.342);">
+      style="left: 42%!important; top: 92%!important; width:20%; border: none; background-color:transparent; color: rgba(0, 0, 0, 0.342);">
       Voltar etapa
     </button>
 
     <!-- Botão Próxima -->
-    <button *ngIf="!navigationService.isLastStep()" (click)="navigationService.nextStep()"
+ <button *ngIf="!navigationService.isLastStep()" (click)="navigationService.nextStep()"
       class="btn btn-primary position-absolute top-100 translate-middle"
       style="left: 83%!important; top: 92%!important; width:20%;">
       Próxima etapa

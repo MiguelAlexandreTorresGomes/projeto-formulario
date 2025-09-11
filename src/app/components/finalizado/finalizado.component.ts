@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './finalizado.component.css'
 })
 export class FinalizadoComponent {
-
+arroba = "@";
 }

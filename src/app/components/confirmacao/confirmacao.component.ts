@@ -12,7 +12,6 @@ import { NavigationService } from '../../services/navigation.service';
 })
 export class ConfirmacaoComponent {
   user: User | null = null;
-  // totalPrice: number = 0;
 
   constructor(private userService: UserService, private navigationService: NavigationService) { }
 
@@ -27,7 +26,7 @@ export class ConfirmacaoComponent {
   changePlan() {
     this.navigationService.navigateToStep(2);
   }
-  getTotalPrice(){
+  getTotalPrice() {
     if (!this.user || !this.user.planos) return 0;
 
     const planoPrice = this.user.isAnnual ? this.user.planos.priceAnnual : this.user.planos.monthlyPrice;

@@ -1,37 +1,23 @@
-<div class="container position-absolute start-50 translate-middle" style="top: 25%;">
+<div class="container">
   <div class="sidebar">
-    <div *ngFor="let step of steps" class="step" [class.active]="isActiveStep(step.number)"
-      (click)="navigateToStep(step.number)">
-      <div class="step-number" [ngClass]="{
-         'step-number-active ': isActiveStep(step.number),
-         '': !isActiveStep(step.number)
-       }">{{ step.number }}</div>
+    <div *ngFor="let step of navigationService.getSteps() | filterSteps" class="step"
+      [class.active]="isActiveStep(step.number)">
+      <div class="step-number"
+        [ngClass]="{'step-number-active ': isActiveStep(step.number),'': !isActiveStep(step.number)}">{{ step.number }}
+      </div>
       <div>
-        <span class="step-info">etapa {{ step.number }}</span>
+        <span class="step-name">etapa</span>
+        <span class="step-info"> {{ step.number }}</span>
         <br>
         <span class="step-info-span">{{ step.title }}</span>
       </div>
     </div>
   </div>
-
-  <div class="content-screen">
-    <div>
-      <router-outlet></router-outlet>
-    </div>
-    <!-- Botão Voltar -->
-    <button *ngIf="!navigationService.isFirstStep()" (click)="navigationService.previousStep()"
-      class="position-absolute top-100 translate-middle"
-      style="left: 42%!important; top: 92%!important; width:20%; border: none; background-color:transparent; color: rgba(0, 0, 0, 0.342);">
-      Voltar etapa
-    </button>
-
-    <!-- Botão Próxima -->
- <button *ngIf="!navigationService.isLastStep()" (click)="navigationService.nextStep()"
-      class="btn btn-primary position-absolute top-100 translate-middle"
-      style="left: 83%!important; top: 92%!important; width:20%;">
-      Próxima etapa
-    </button>
-
+  <div>
+    <div> coluna 1</div>
+    <div> coluna 2</div>
+      <!-- <router-outlet></router-outlet>
+      <app-footer></app-footer> -->
   </div>
 
 </div>

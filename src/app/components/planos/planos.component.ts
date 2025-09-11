@@ -31,6 +31,7 @@ planos: Planos[] = [
       this.userService.setUser(this.user);
     }
     console.log('Usuário recebido na tela de planos:', this.user);
+    this.selecionarPlano(this.planos[0]);
   }
 
   toggleBilling() {

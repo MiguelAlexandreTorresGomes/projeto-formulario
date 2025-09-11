@@ -6,16 +6,12 @@
     max-height: 280px!important;
     flex-direction: column;
 } */
-.pages-container {
-  height: 100vh;        
-  overflow-y: auto;      
-  overflow-x: hidden;   
-}
+
 
 .plans-container {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
 }
 
 .plan {

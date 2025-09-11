@@ -4,35 +4,38 @@
             <h2>Selecione seu plano</h2>
             <h6>Você tem a opção de cobrança mensal ou anual.</h6>
         </div>
-        <div class="plans-container">
+        <div class="hero-content">
+            <div class="plans-container">
 
 
-            <div class="plan" *ngFor="let plano of planos" (click)="selecionarPlano(plano)"
-                [ngClass]="{'selecionado': user?.planos?.id === plano.id}">
-                <td><img [src]="plano.image" [alt]="plano.name" width="40px" height="40px"></td>
-                <td class="plan-name mt-5">{{plano.name}}</td>
-                <h6>${{getPlanoPrice(plano)}}/{{ user?.isAnnual ? 'ano' : 'mês' }}</h6>
-                <h6 style="color: #0A3459!important; font-size: 15px!important;">{{ user?.isAnnual ? '2 mês de graça' : ''}}</h6>
+                <div class="plan" *ngFor="let plano of planos" (click)="selecionarPlano(plano)"
+                    
+                    [ngClass]="{'selecionado': user?.planos?.id === plano.id}">
+                    <td><img [src]="plano.image" [alt]="plano.name"></td>
+                    <td class="plan-name">{{plano.name}}</td>
+                    <h6 id="plan-price">${{getPlanoPrice(plano)}}/{{ user?.isAnnual ? 'ano' : 'mês' }}</h6>
+                    <h6 id="free-months" style="color: #0A3459!important; font-size: 15px!important;">
+                        {{ user?.isAnnual? '2mês de graça' : ''}}</h6>
+                    
+                </div>
+
+
             </div>
 
-
-        </div>
-
-        <div class="time-change justify-content-center ">
-            <div class="grid d-flex justify-content-center align-items-center  ">
-                <div [ngClass]="{'type-payment-selected': !user?.isAnnual, 'type-payment-notselected': user?.isAnnual}">Mensal</div>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="billing-toggle" style="display: none;" (change)="toggleBilling()"
-                        [checked]="user?.isAnnual">
-                    <span class="slider"></span>
-                </label>
-                <div [ngClass]="{'type-payment-selected': user?.isAnnual, 'type-payment-notselected': !user?.isAnnual}">Anual</div>
+            <div class="time-change justify-content-center ">
+                <div class="grid d-flex justify-content-center align-items-center  ">
+                    <div
+                        [ngClass]="{'type-payment-selected': !user?.isAnnual, 'type-payment-notselected': user?.isAnnual}">
+                        Mensal</div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="billing-toggle" style="display: none;" (change)="toggleBilling()"
+                            [checked]="user?.isAnnual">
+                        <span class="slider"></span>
+                    </label>
+                    <div
+                        [ngClass]="{'type-payment-selected': user?.isAnnual, 'type-payment-notselected': !user?.isAnnual}">
+                        Anual</div>
+                </div>
             </div>
         </div>
-
-        <!-- <div class="position-relative button-next-step">
-            <a href="/addons">
-                <button class="btn btn-primary position-absolute bottom-0 end-0">Proxima etapa</button>
-            </a>
-        </div> -->
     </div>

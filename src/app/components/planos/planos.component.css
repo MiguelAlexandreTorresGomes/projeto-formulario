@@ -1,3 +1,4 @@
+
 .plan-name {
     font-weight: 700;
     color: #0A3459;
@@ -6,7 +7,7 @@
 .plans-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 18px;
+    gap: 10px;
     margin-bottom: 35px;
 }
 
@@ -18,20 +19,24 @@
     padding: 20px;
     flex-direction: column;
     display: flex;
+} 
 
-}
 .plan:hover {
   border: 1px solid #4D4A8C;
+  background-color: #4d4a8c12;
   transform: scale(1.02);
 }
 
 .plan:active {
   border: 1px solid #4D4A8C; 
+  background-color: #4d4a8c12;
   transform: scale(0.98);
 }
 
 .plan.selecionado {
   border: 1px solid #4D4A8C;
+  background-color: #4d4a8c12;
+
 }
 .time-change {
     background-color: #d6d9e65b;
@@ -88,3 +93,22 @@ input:checked+.slider:before {
   font-weight: 400;
   color: #A0A0A0; 
 }
+    
+        @media (max-width: 576px) {
+            .form-card {
+                padding: 20px;
+            }
+            
+            .plan {
+                padding: 15px;
+            }
+            
+            .grid {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .buttons {
+                margin-top: 20px;
+            }
+        } 

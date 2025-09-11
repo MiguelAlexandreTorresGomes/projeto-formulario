@@ -1,0 +1,19 @@
+<div class="pages-container">
+  <div class="form-card d-flex" style="width: 100%!important;">
+    <div class="form-card d-flex align-items-center w-100">
+      <!-- Botão Voltar -->
+      <button *ngIf="!navigationService.isFirstStep() && !navigationService.isLastStep()"
+        (click)="navigationService.previousStep()"
+        style="border: none; background-color:transparent; color: rgba(0, 0, 0, 0.342);">
+        Voltar etapa
+      </button>
+
+      <!-- Botão Próxima -->
+      <button *ngIf="!navigationService.isLastStep()"
+        (click)="navigationService.nextStep()"
+        class="btn btn-primary ms-auto">
+        Próxima etapa
+      </button>
+    </div>
+  </div>
+</div>

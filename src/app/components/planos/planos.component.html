@@ -1,13 +1,10 @@
 <div class="pages-container mb-5">
-    <div>
         <div class="mb-5">
             <h2>Selecione seu plano</h2>
             <h6>Você tem a opção de cobrança mensal ou anual.</h6>
         </div>
-        <div class="hero-content">
+        <div class="hero-content" style="width: 100%;">
             <div class="plans-container">
-
-
                 <div class="plan" *ngFor="let plano of planos" (click)="selecionarPlano(plano)"
                     
                     [ngClass]="{'selecionado': user?.planos?.id === plano.id}">
@@ -38,4 +35,3 @@
                 </div>
             </div>
         </div>
-    </div>

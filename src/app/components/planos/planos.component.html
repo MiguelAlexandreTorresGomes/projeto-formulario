@@ -1,5 +1,5 @@
 <div class="pages-container mb-5">
-    <div class="form-card">
+    <div>
         <div class="mb-5">
             <h2>Selecione seu plano</h2>
             <h6>Você tem a opção de cobrança mensal ou anual.</h6>
@@ -15,7 +15,7 @@
                     <td class="plan-name">{{plano.name}}</td>
                     <h6 id="plan-price">${{getPlanoPrice(plano)}}/{{ user?.isAnnual ? 'ano' : 'mês' }}</h6>
                     <h6 id="free-months" style="color: #0A3459!important; font-size: 15px!important;">
-                        {{ user?.isAnnual? '2mês de graça' : ''}}</h6>
+                        {{ user?.isAnnual? '2 meses de graça' : ''}}</h6>
                     
                 </div>
 

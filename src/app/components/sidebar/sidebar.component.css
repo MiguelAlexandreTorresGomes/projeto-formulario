@@ -1,15 +1,17 @@
-.container {
-    display: flex;
+/* .container {
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    width: 50%;
-    min-height: 600px;
-    max-height: 600px;
-    overflow: hidden;
+    min-width: 100vh!important;
+    max-width: 100vh!important;
+    min-height: 65vh;
+    max-height: 65vh;
+    min-width: 45%;
+    min-height: 50%;
+    display: flex;
     gap: 30px;
     border: 10px solid white;
-}
+} */
 
 .step-name {
     font-size: 12px;
@@ -20,7 +22,7 @@
 .sidebar {
     background-image: url('../../../assets/images/bg-sidebar-desktop.svg');
     background-size: cover;
-    width: 286px;
+    /* width: 286px; */
     padding: 40px 32px;
     color: white;
     display: flex;
@@ -81,4 +83,18 @@
     align-content: stretch;
     justify-content: space-between;
     gap: 10px;
+}
+
+.classe-principal{
+     min-width: 45%;
+    min-height: 50%;
+    display: flex;
+    gap: 30px;
+    border: 10px solid white;  background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.fix-pages{
+    width: 530px; height: 400px;
 }

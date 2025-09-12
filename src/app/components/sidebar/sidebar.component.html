@@ -1,4 +1,4 @@
-<div class="container">
+<div class="classe-principal">
   <div class="sidebar">
     <div *ngFor="let step of navigationService.getSteps() | filterSteps" class="step"
       [class.active]="isActiveStep(step.number)">
@@ -13,10 +13,11 @@
       </div>
     </div>
   </div>
-  <div>
-    
+  <div class="hero">
+    <div class="fix-pages">
       <router-outlet></router-outlet>
-      <app-footer></app-footer>
+    </div>
+    <app-footer></app-footer>
   </div>
 
 </div>

@@ -69,9 +69,4 @@ export class AddonsComponent {
   isAddonSelected(addon: Addons): boolean {
     return !!this.user && Array.isArray(this.user.addons) && this.user.addons.some(a => a.id === addon.id);
   }
-
-
-
-
-
 }

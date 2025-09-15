@@ -37,3 +37,21 @@
 .margin-distance{
     margin: 10px;
 }
+
+.plan:hover {
+  border: 1px solid #4D4A8C;
+  background-color: #4d4a8c12;
+  transform: scale(1.02);
+}
+
+.plan:active {
+  border: 1px solid #4D4A8C; 
+  background-color: #4d4a8c12;
+  transform: scale(0.98);
+}
+
+.plan.selecionado {
+  border: 1px solid #4D4A8C;
+  background-color: #4d4a8c12;
+
+}

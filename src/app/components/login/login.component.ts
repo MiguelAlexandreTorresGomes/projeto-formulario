@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Registra o formulário no serviço de navegação
     this.navigationService.setUserForm(this.userForm);
     
     const savedUser = this.userService.getUser();

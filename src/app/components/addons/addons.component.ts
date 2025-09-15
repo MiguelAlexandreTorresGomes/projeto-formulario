@@ -49,24 +49,18 @@ export class AddonsComponent {
     console.log('User atualizado:', this.user);
   }
 
-
-  toggleAddon(event: Event, addon: Addons) {
-    if (!this.user) return;
-
-    const checkbox = event.target as HTMLInputElement;
-
-    if (checkbox.checked) {
-      if (!(this.user.addons || []).some(a => a.id === addon.id)) {
-        this.user.addons = [...(this.user.addons || []), addon];
-      }
-    } else {
-      this.user.addons = (this.user.addons || []).filter(a => a.id !== addon.id);
-    }
-
-    this.userService.setUser(this.user);
+toggleAddon(event: any, addon: Addons) {
+  if (event) {
+    event.stopPropagation(); 
   }
 
-  isAddonSelected(addon: Addons): boolean {
-    return !!this.user && Array.isArray(this.user.addons) && this.user.addons.some(a => a.id === addon.id);
-  }
+  this.selecionarAddon(addon);
+}
+
+isAddonSelected(addon: Addons): boolean {
+  if (!this.user || !this.user.addons) return false;
+  return this.user.addons.some(a => a.id === addon.id);
+}
+
+
 }

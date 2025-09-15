@@ -1,17 +1,17 @@
 <div class="pages-container footer">
   <div class="d-flex" style="width: 100%!important;">
-    <div class="form-card d-flex align-items-center w-100">
+    <div class="d-flex align-items-center w-100 pages-container footer ">
       <button *ngIf="!navigationService.isFirstStep() && !navigationService.isLastStep()"
         (click)="navigationService.previousStep()"
         style="border: none; background-color:transparent; color: rgba(0, 0, 0, 0.342);">
-        Voltar etapa
+        Voltar
       </button>
 
       <button [class.invisible]="navigationService.isLastStep()"
         *ngIf="!navigationService.isLastStep() || true"
         (click)="navigationService.nextStep()"
         class="btn btn-primary ms-auto" style="width: 130px!important; height: 38px !important;">
-        {{ navigationService.isActiveStep(4) ? 'Confirmar' : 'Próxima etapa' }}
+        {{ navigationService.isActiveStep(4) ? 'Confirmar' : 'Próxima' }}
       </button>
     </div>
   </div>

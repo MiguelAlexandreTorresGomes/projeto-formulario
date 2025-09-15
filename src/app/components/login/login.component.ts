@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UserService } from '../../services/user.service';
 import { NavigationService } from '../../services/navigation.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,NgxMaskDirective],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

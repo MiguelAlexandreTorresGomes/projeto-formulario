@@ -1,37 +1,36 @@
 <div class="pages-container mb-5">
-        <div class="mb-5">
-            <h2>Selecione seu plano</h2>
-            <h6>Você tem a opção de cobrança mensal ou anual.</h6>
-        </div>
-        <div class="hero-content" style="width: 100%;">
-            <div class="plans-container">
-                <div class="plan" *ngFor="let plano of planos" (click)="selecionarPlano(plano)"
-                    
-                    [ngClass]="{'selecionado': user?.planos?.id === plano.id}">
-                    <td><img [src]="plano.image" [alt]="plano.name"></td>
+    <div class="mb-5">
+        <h2>Selecione seu plano</h2>
+        <h6>Você tem a opção de cobrança mensal ou anual.</h6>
+    </div>
+    <div class="hero-content" style="width: 100%;">
+        <div class="plans-container">
+            <div class="plan" *ngFor="let plano of planos" (click)="selecionarPlano(plano)"
+                [ngClass]="{'selecionado': user?.planos?.id === plano.id}">
+                <td><img [src]="plano.image" [alt]="plano.name"></td>
+                <div class="plan-infos">
                     <td class="plan-name">{{plano.name}}</td>
                     <h6 id="plan-price">${{getPlanoPrice(plano)}}/{{ user?.isAnnual ? 'ano' : 'mês' }}</h6>
                     <h6 id="free-months" style="color: #0A3459!important; font-size: 15px!important;">
                         {{ user?.isAnnual? '2 meses de graça' : ''}}</h6>
-                    
                 </div>
-
 
             </div>
 
-            <div class="time-change justify-content-center ">
-                <div class="grid d-flex justify-content-center align-items-center  ">
-                    <div
-                        [ngClass]="{'type-payment-selected': !user?.isAnnual, 'type-payment-notselected': user?.isAnnual}">
-                        Mensal</div>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="billing-toggle" style="display: none;" (change)="toggleBilling()"
-                            [checked]="user?.isAnnual">
-                        <span class="slider"></span>
-                    </label>
-                    <div
-                        [ngClass]="{'type-payment-selected': user?.isAnnual, 'type-payment-notselected': !user?.isAnnual}">
-                        Anual</div>
-                </div>
+
+        </div>
+
+        <div class="time-change justify-content-center ">
+            <div class="grid d-flex justify-content-center align-items-center  ">
+                <div [ngClass]="{'type-payment-selected': !user?.isAnnual, 'type-payment-notselected': user?.isAnnual}">
+                    Mensal</div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="billing-toggle" style="display: none;" (change)="toggleBilling()"
+                        [checked]="user?.isAnnual">
+                    <span class="slider"></span>
+                </label>
+                <div [ngClass]="{'type-payment-selected': user?.isAnnual, 'type-payment-notselected': !user?.isAnnual}">
+                    Anual</div>
             </div>
         </div>
+    </div>

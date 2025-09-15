@@ -1,9 +1,9 @@
-<div class="pages-container mb-5">
-        <div class="mb-5">
+<div class="pages-container">
+        <div class="information-text">
             <h2>Informações Pessoais</h2>
             <h6>Por favor, forneça o seu nome, endereço de e-mail e número de telefone.</h6>
         </div>
-        <form [formGroup]="userForm">
+        <form class="form-login"[formGroup]="userForm">
             <!-- Nome -->
             <div>
                 <div class="d-flex justify-content-between">
@@ -39,7 +39,7 @@
                         {{ getErrorMessage(userForm.get('phoneNumber')) }}
                     </h5>
                 </div>
-                <input type="text" class="form-control mb-4" placeholder="ex: (31) 99999-9999"
+                <input  mask="(00) 0 0000 0000" type="text" class="form-control mb-4" placeholder="ex: (31) 99999-9999"
                     formControlName="phoneNumber"
                     [ngClass]="{ 'is-invalid': userForm.get('phoneNumber')?.invalid && (userForm.get('phoneNumber')?.dirty || userForm.get('phoneNumber')?.touched) }">
             </div>

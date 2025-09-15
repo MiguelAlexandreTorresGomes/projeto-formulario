@@ -242,4 +242,7 @@
           .margin-distance {
               margin: 0 !important;
           }
+          .plans-container.mt-5{
+            width: 100%;
+          }
       }

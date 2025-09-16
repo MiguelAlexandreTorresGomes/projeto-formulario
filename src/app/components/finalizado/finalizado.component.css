@@ -1,12 +1,20 @@
 .pages-container {
-    min-height: auto !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 130%;
 }
 
-.finish{
-    display: flex!important;
-    flex-direction: column!important;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 25px;
+.finish {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.finish-img {
+  width: 100px;
+  height: 100px;
 }

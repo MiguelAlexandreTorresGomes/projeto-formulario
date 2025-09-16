@@ -22,13 +22,20 @@ export class LoginComponent implements OnInit {
     private navigationService: NavigationService
   ) {
     this.userForm = this._formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern(/^[A-Za-zÀ-ÿ\s]+$/) // apenas letras e espaços
+        ]
+      ],
       email: [
         '',
         [
           Validators.required,
           Validators.email,
-          Validators.pattern(/^[a-zA-Z0-9._%+-]+@(gmail|outlook|yahoo)\.com(\.br)?$/i)
+          Validators.pattern(/^[a-zA-Z0-9._%+-]+@(gmail|outlook)\.com(\.br)?$/i)
         ]
       ],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10,11}$/)]],
@@ -49,10 +56,25 @@ export class LoginComponent implements OnInit {
 
     this.userForm.valueChanges
       .pipe(
-        debounceTime(300),
+        debounceTime(10),
         distinctUntilChanged()
       )
       .subscribe(values => {
+        if (values.name) {
+          const formattedName = values.name
+            .split(' ')
+            .map((word: string) =>
+              word.length > 2
+                ? word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                : word 
+            )
+            .join(' ');
+
+          if (formattedName !== values.name) {
+            this.userForm.get('name')?.setValue(formattedName, { emitEvent: false });
+          }
+        }
+
         this.userService.setUser(values);
         console.log("Usuário atualizado automaticamente:", values);
       });
@@ -73,10 +95,13 @@ export class LoginComponent implements OnInit {
       return `Mínimo ${control.errors['minlength'].requiredLength} caracteres`;
     }
     if (control.errors['pattern'] && control === this.userForm.get('email')) {
-      return 'Apenas emails do Gmail, Outlook e Yahoo são permitidos';
+      return 'Apenas emails do Gmail ou Outlook são permitidos';
     }
     if (control.errors['pattern'] && control === this.userForm.get('phoneNumber')) {
       return 'Formato inválido (10 ou 11 dígitos)';
+    }
+    if (control.errors['pattern'] && control === this.userForm.get('name')) {
+      return 'O nome não pode conter números ou caracteres especiais';
     }
 
     return '';

@@ -9,10 +9,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class NavigationService {
   private currentStep = 1;
-  private readonly totalSteps = 5;
+  private readonly totalSteps = 4;
   private userForm: FormGroup | null = null;
+  private isConfirmed = false;
   private validationErrorSubject = new BehaviorSubject<boolean>(false);
   public showValidationError$ = this.validationErrorSubject.asObservable();
+
 
   private steps = [
     { path: '/login', number: 1, title: 'sua info' },
@@ -20,9 +22,9 @@ export class NavigationService {
     { path: '/addons', number: 3, title: 'add-ons' },
     { path: '/confirmacao', number: 4, title: 'confirmação' },
     { path: '/finalizado', number: 5, title: 'finalizado' },
-    
+
   ];
-  
+
 
   constructor(private router: Router, public userService: UserService) { }
 
@@ -44,15 +46,15 @@ export class NavigationService {
       this.validationErrorSubject.next(true);
       return;
     }
-    
+
     this.markFormGroupTouched(this.userForm);
-    
+
     if (this.userForm.valid) {
       console.log("FORMULÁRIO VÁLIDO - Avançando para próximo passo");
       this.validationErrorSubject.next(false);
-      
+
       this.userService.setUser(this.userForm.value);
-      
+
       if (this.currentStep < this.totalSteps) {
         this.currentStep++;
         this.navigateToStep(this.currentStep);
@@ -66,7 +68,7 @@ export class NavigationService {
   private markFormGroupTouched(formGroup: FormGroup): void {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();
-      
+
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
       }
@@ -74,15 +76,24 @@ export class NavigationService {
   }
 
   previousStep(): void {
-    if(this.currentStep > 1) {
+    if (this.currentStep > 1) {
       this.currentStep--;
       this.navigateToStep(this.currentStep);
     }
   }
+  setConfirmed(): void {
+    this.isConfirmed = true;
+  }
 
+  isConfirmedStep(): boolean {
+    return this.isConfirmed;
+  }
   navigateToStep(stepNumber: number): void {
-    if(stepNumber >= 1 && stepNumber <= this.totalSteps) {
+    if (stepNumber >= 1 && stepNumber <= this.totalSteps) {
       this.currentStep = stepNumber;
+      if (stepNumber !== 4) {
+        this.isConfirmed = false;
+      }
       const step = this.steps.find(s => s.number === stepNumber);
       if (step) {
         this.router.navigate([step.path]);
@@ -95,10 +106,19 @@ export class NavigationService {
   }
 
   isFirstStep(): boolean {
-    return this.currentStep === 1 ;
+    return this.currentStep === 1;
   }
 
   isLastStep(): boolean {
     return this.currentStep === this.steps.length;
   }
+  confirmAndFinish(): void {
+    console.log("Processo confirmado - pronto para salvar no BD");
+  }
+
+  goToFinalScreen(): void {
+    this.currentStep = 5;
+    this.router.navigate(['/finalizado']);
+  }
+  
 }

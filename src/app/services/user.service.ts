@@ -6,6 +6,7 @@ import { User } from '../models/user/user.model';
   providedIn: 'root'
 })
 export class UserService {
+  [x: string]: any;
   private _user: User = new User();
   private userSubject = new BehaviorSubject<User>(this._user);
   user$ = this.userSubject.asObservable();

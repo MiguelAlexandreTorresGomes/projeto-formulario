@@ -20,6 +20,11 @@
           margin-left: 1rem;
       }
 
+      .fade {
+          background-color: rgba(0, 0, 0, 0.169);
+      }
+
+
       .pages-container {
           padding: 20px;
           justify-content: center;
@@ -59,6 +64,13 @@
 
       .information-text {
           margin-bottom: 3rem;
+      }
+
+      .modal-content {
+          background: white !important;
+          padding: 2%;
+          animation: slideIn 0.3s ease;
+   box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.1),
       }
 
       @media (max-width: 768px) {
@@ -246,5 +258,17 @@
 
           .plans-container.mt-5 {
               width: 100%;
+          }
+      }
+
+      @keyframes slideIn {
+          from {
+              opacity: 0;
+              transform: translateY(-50px) scale(0.9);
+          }
+
+          to {
+              opacity: 1;
+              transform: translateY(0) scale(1);
           }
       }

@@ -30,7 +30,6 @@ planos: Planos[] = [
       this.user = new User();
       this.userService.setUser(this.user);
     }
-    console.log('Usuário recebido na tela de planos:', this.user);
     this.selecionarPlano(this.planos[0]);
   }
 
@@ -44,7 +43,6 @@ planos: Planos[] = [
     this.user.planos = plano;
     this.userService.setUser(this.user);
 
-    console.log('User atualizado:', this.user);
   }
    getPlanoPrice(plano: Planos): number {
     return this.user?.isAnnual ? plano.priceAnnual : plano.monthlyPrice;

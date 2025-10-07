@@ -15,7 +15,7 @@ import { User } from '../../models/user/user.model';
 export class AddonsComponent {
   user: User | null = null;
   addons: Addons[] = [
-    new Addons(1, 'Serviço', "Acesse a jogos cooperativos", 3, 30),
+    new Addons(1, 'Serviço online', "Acesse a jogos cooperativos", 3, 30),
     new Addons(2, 'Mais espaço', "1Tera extra com bakcup em nuvem", 6, 60),
     new Addons(3, 'Perfil Customizavel', "Tema customizado para o seu perfil", 9, 90)
   ];
@@ -27,7 +27,6 @@ export class AddonsComponent {
       this.user = new User();
       this.userService.setUser(this.user);
     }
-    console.log('Usuário recebido na tela de addons:', this.user);
   }
 
 
@@ -46,7 +45,6 @@ export class AddonsComponent {
     this.user.addons = addonsSelecionados;
     this.userService.setUser(this.user);
 
-    console.log('User atualizado:', this.user);
   }
 
 toggleAddon(event: any, addon: Addons) {

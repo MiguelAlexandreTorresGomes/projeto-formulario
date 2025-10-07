@@ -1,0 +1,25 @@
+<div class="admin-fullscreen-overlay">
+  <div class="admin-content">
+    <header class="admin-header">
+      <h1 class="title">Painel Administrativo</h1>
+      <button (click)="logout()" class="btn-logout">Sair</button>
+    </header>
+    <div class="dashboard-content">
+      <nav class="admin-sidebar">
+        <ul>
+          <li>
+            <a (click)="main()" routerLink="/adm/dashboard" [class.active]="activeTab === 'main'">
+              Menu
+            </a>
+          </li>
+          <li>
+            <a (click)="client()" routerLink="/adm/dashboard/clientes" [class.active]="activeTab === 'client'">
+              Clientes
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

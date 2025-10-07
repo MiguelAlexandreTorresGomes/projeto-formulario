@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { NavigationService } from '../../services/navigation.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, switchMap, take } from 'rxjs/operators';
 import { NgxMaskDirective } from 'ngx-mask';
+import { ApiService } from '../../services/api.service'; 
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +17,13 @@ import { NgxMaskDirective } from 'ngx-mask';
 })
 export class LoginComponent implements OnInit {
   userForm: FormGroup;
+  isCheckingEmail = false;
 
   constructor(
     private _formBuilder: FormBuilder,
     private userService: UserService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private apiService: ApiService 
   ) {
     this.userForm = this._formBuilder.group({
       name: [
@@ -27,7 +31,7 @@ export class LoginComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(2),
-          Validators.pattern(/^[A-Za-zÀ-ÿ\s]+$/) // apenas letras e espaços
+          Validators.pattern(/^[A-Za-zÀ-ÿ\s]+$/)
         ]
       ],
       email: [
@@ -54,6 +58,8 @@ export class LoginComponent implements OnInit {
       });
     }
 
+    this.setupEmailValidation();
+
     this.userForm.valueChanges
       .pipe(
         debounceTime(10),
@@ -76,9 +82,53 @@ export class LoginComponent implements OnInit {
         }
 
         this.userService.setUser(values);
-        console.log("Usuário atualizado automaticamente:", values);
       });
   }
+
+private setupEmailValidation(): void {
+  const emailControl = this.userForm.get('email');
+  
+  if (emailControl) {
+    emailControl.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        switchMap(email => {
+          if (!email || emailControl.errors?.['email'] || emailControl.errors?.['pattern']) {
+            this.isCheckingEmail = false;
+            return of(null);
+          }
+          
+          this.isCheckingEmail = true;
+          return this.apiService.checkEmailExists(email).pipe(
+            catchError(error => {
+              this.isCheckingEmail = false;
+              return of(null);
+            })
+          );
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          this.isCheckingEmail = false;
+          
+          if (response?.exists) {
+            const currentErrors = emailControl.errors || {};
+            emailControl.setErrors({ ...currentErrors, emailExists: true });
+            emailControl.markAsTouched(); 
+          } else {
+            if (emailControl.errors?.['emailExists']) {
+              const { emailExists, ...otherErrors } = emailControl.errors;
+              emailControl.setErrors(Object.keys(otherErrors).length ? otherErrors : null);
+            }
+          }
+        },
+        error: (error) => {
+          this.isCheckingEmail = false;
+          console.error('❌ Erro na subscription:', error);
+        }
+      });
+  }
+}
 
   getErrorMessage(control: any): string {
     if (!control || !control.errors) {
@@ -103,7 +153,15 @@ export class LoginComponent implements OnInit {
     if (control.errors['pattern'] && control === this.userForm.get('name')) {
       return 'O nome não pode conter números ou caracteres especiais';
     }
+    if (control.errors['emailExists']) {
+      return 'Este email já está cadastrado';
+    }
 
     return '';
   }
+
+  isEmailChecking(): boolean {
+    return this.isCheckingEmail && this.userForm.get('email')?.valid;
+  }
+  
 }

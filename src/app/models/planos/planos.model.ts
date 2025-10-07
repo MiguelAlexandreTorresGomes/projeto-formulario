@@ -4,6 +4,7 @@ export class Planos {
     private _name: string;
     private _monthlyPrice: number;
     private _priceAnnual: number;
+  nome: string;
 
     constructor(id: number, image: any, name: string, monthlyPrice: number, priceAnnual: number) {
         this._id = id;

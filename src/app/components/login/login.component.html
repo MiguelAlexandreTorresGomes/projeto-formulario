@@ -18,17 +18,25 @@
             </div>
 
             <!-- Email -->
-            <div>
-                <div class="d-flex justify-content-between">
-                    <h5>Email</h5>
-                    <h5 class="text-danger mb-0"
-                        *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched)">
-                        {{ getErrorMessage(userForm.get('email')) }}
-                    </h5>
-                </div>
-                <input type="email" class="form-control mb-4" placeholder="ex: fulano@email.com" formControlName="email"
-                    [ngClass]="{ 'is-invalid': userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched) }">
-            </div>
+  <div>
+  <div class="d-flex justify-content-between">
+    <h5>Email</h5>
+    <div>
+      <span *ngIf="isEmailChecking()" class="text-info small me-2">
+        Verificando...
+      </span>
+      <h5 class="text-danger mb-0"
+        *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched)">
+        {{ getErrorMessage(userForm.get('email')) }}
+      </h5>
+    </div>
+  </div>
+  <input type="email" class="form-control mb-4" placeholder="ex: fulano@email.com" formControlName="email" 
+    [ngClass]="{ 
+      'is-invalid': userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched),
+      'is-valid': userForm.get('email')?.valid && userForm.get('email')?.dirty 
+    }">
+</div>
 
             <!-- Telefone -->
             <div>

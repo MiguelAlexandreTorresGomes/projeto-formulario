@@ -1,0 +1,72 @@
+<div class="modal fade show d-block" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Detalhes do Cliente</h2>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="isLoading" class="loading">
+          <p>Carregando dados do cliente...</p>
+        </div>
+
+        <div *ngIf="mensagem" [class]="tipoMensagem === 'sucesso' ? 'alert alert-success' : 'alert alert-danger'">
+          {{ mensagem }}
+        </div>
+
+        <div *ngIf="cliente && !isLoading" class="cliente-info">
+          <div class="info-section">
+            <h3>Informações Pessoais</h3>
+            <div class="info-item">
+              <label>Nome:</label>
+              <span>{{ cliente.name }}</span>
+            </div>
+            <div class="info-item">
+              <label>Email:</label>
+              <span>{{ cliente.email }}</span>
+            </div>
+            <div class="info-item">
+              <label>Telefone:</label>
+              <span>{{ formatPhone(cliente.phoneNumber) }}</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h3>Plano e Assinatura</h3>
+            <div class="info-item">
+              <label>Plano:</label>
+              <span>{{ cliente.planos }}</span>
+            </div>
+            <div class="info-item">
+              <label>Addons:</label>
+              <span>{{ cliente.addons }}</span>
+            </div>
+            <div class="info-item">
+              <label>Anual ou mensal:</label>
+              <span>{{ cliente.isAnnual ? 'Anual' : 'Mensal' }}</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h3>Informações do Sistema</h3>
+            <div class="info-item">
+              <label>ID:</label>
+              <span class="small">{{ cliente._id }}</span>
+            </div>
+            <div class="info-item">
+              <label>Criado em:</label>
+              <span>{{ cliente.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!cliente && !isLoading" class="error">
+          <p>Erro ao carregar dados do cliente.</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeModal()">Fechar</button>
+      </div>
+    </div>
+  </div>

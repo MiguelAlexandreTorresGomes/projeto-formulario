@@ -1,0 +1,100 @@
+.admin-fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    overflow: auto;
+}
+
+.admin-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.admin-header {
+    background-color: #242424;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.btn-logout {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-logout:hover {
+    background-color: #c0392b;
+}
+
+.dashboard-content {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 80px);
+}
+
+.admin-sidebar {
+    min-width: 250px!important;
+    background-color: #303030;
+    color: white;
+    padding: 1rem 0;
+}
+
+.admin-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-sidebar li {
+    margin: 0;
+}
+
+.admin-sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.3s;
+}
+
+.admin-sidebar a:hover{
+    background-color: #0d6dfd36;
+    
+}
+.admin-sidebar a.active {
+    background-color: #0d6efd;
+}
+
+
+@media (max-width: 768px) {
+    .dashboard-content{
+        display: flex!important;
+        flex-direction: column!important;
+    }
+    .title{
+         width: 100%; /* Defina uma largura fixa para a div */
+  overflow: hidden; /* Esconde o conteúdo que transborda */
+  white-space: nowrap; /* Impede que o texto quebre linha */
+  text-overflow: ellipsis; /* Adiciona reticências ao final */
+    }
+    .btn-logout{
+  text-overflow: ellipsis; /* Adiciona reticências ao final */
+        
+    }
+}

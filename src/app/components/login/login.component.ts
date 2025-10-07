@@ -82,7 +82,6 @@ export class LoginComponent implements OnInit {
         }
 
         this.userService.setUser(values);
-        console.log("Usuário atualizado automaticamente:", values);
       });
   }
 
@@ -100,10 +99,8 @@ private setupEmailValidation(): void {
           }
           
           this.isCheckingEmail = true;
-          console.log('🔄 Iniciando verificação do email:', email);
           return this.apiService.checkEmailExists(email).pipe(
             catchError(error => {
-              console.error('❌ Erro na verificação:', error);
               this.isCheckingEmail = false;
               return of(null);
             })
@@ -113,27 +110,17 @@ private setupEmailValidation(): void {
       .subscribe({
         next: (response) => {
           this.isCheckingEmail = false;
-          console.log('✅ Resposta da verificação:', response);
           
           if (response?.exists) {
-            console.log('🚫 Email já existe, adicionando erro');
             const currentErrors = emailControl.errors || {};
             emailControl.setErrors({ ...currentErrors, emailExists: true });
             emailControl.markAsTouched(); 
           } else {
-            console.log('✅ Email disponível, removendo erro se existir');
             if (emailControl.errors?.['emailExists']) {
               const { emailExists, ...otherErrors } = emailControl.errors;
               emailControl.setErrors(Object.keys(otherErrors).length ? otherErrors : null);
             }
           }
-          
-          console.log('📊 Estado do emailControl:', {
-            valid: emailControl.valid,
-            invalid: emailControl.invalid,
-            errors: emailControl.errors,
-            value: emailControl.value
-          });
         },
         error: (error) => {
           this.isCheckingEmail = false;

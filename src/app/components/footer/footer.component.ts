@@ -20,18 +20,12 @@ export class FooterComponent {
       confirmed => this.isConfirmed = confirmed
     );
   }
-
-
   isActiveStep(stepNumber: number): boolean {
     return this.navigationService.isActiveStep(stepNumber);
   }
-
   navigateToStep(stepNumber: number): void {
     this.navigationService.navigateToStep(stepNumber);
   }
-
-   
-
   onConfirm() {
     this.isConfirming = true;
     this.confirmationService.triggerConfirmation();

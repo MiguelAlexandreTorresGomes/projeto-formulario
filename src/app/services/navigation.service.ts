@@ -50,7 +50,6 @@ export class NavigationService {
     this.markFormGroupTouched(this.userForm);
 
     if (this.userForm.valid) {
-      console.log("FORMULÁRIO VÁLIDO - Avançando para próximo passo");
       this.validationErrorSubject.next(false);
 
       this.userService.setUser(this.userForm.value);
@@ -60,7 +59,6 @@ export class NavigationService {
         this.navigateToStep(this.currentStep);
       }
     } else {
-      console.log("FORMULÁRIO INVÁLIDO - Corrija os erros");
       this.validationErrorSubject.next(true);
     }
   }
@@ -111,9 +109,6 @@ export class NavigationService {
 
   isLastStep(): boolean {
     return this.currentStep === this.steps.length;
-  }
-  confirmAndFinish(): void {
-    console.log("Processo confirmado - pronto para salvar no BD");
   }
 
   goToFinalScreen(): void {

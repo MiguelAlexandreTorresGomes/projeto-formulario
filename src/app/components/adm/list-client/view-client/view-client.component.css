@@ -1,0 +1,38 @@
+
+.modal-content {
+  max-width: 600px;
+}
+
+.info-section {
+  margin-bottom: 1.5rem;
+}
+
+.info-section h3 {
+  color: #2c3e50;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.info-item label {
+  font-weight: bold;
+  color: #7f8c8d;
+}
+
+.badge {
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.small {
+  font-size: 0.8rem;
+  word-break: break-all;
+}

@@ -38,7 +38,6 @@ export class ConfirmacaoComponent implements OnInit, OnDestroy {
       this.user = new User();
       this.userService.setUser(this.user);
     }
-    console.log('Usuário recebido na tela de confirmação:', this.user);
   }
 
   ngOnDestroy(): void {
@@ -90,13 +89,9 @@ export class ConfirmacaoComponent implements OnInit, OnDestroy {
 
     const userData = this.formatUserForBackend(this.user);
     
-    console.log('Enviando dados para o backend:', userData);
-    console.log('URL: http://localhost:3000/clientes/create');
-
     this.apiService.createCliente(userData).subscribe({
-      next: (response) => {
+      next: () => {
         this.isLoading = false;
-        console.log('Cliente criado com sucesso:', response);
         
         if (this.navigationService['setConfirmed']) {
           this.navigationService['setConfirmed']();

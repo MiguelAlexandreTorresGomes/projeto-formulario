@@ -1,0 +1,133 @@
+<div class="modal fade show d-block" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Cliente</h2>
+                <button type="button" class="btn-close" (click)="closeModal()"></button>
+            </div>
+
+            <form [formGroup]="clienteForm" (ngSubmit)="salvarEdicao()">
+                <div class="modal-body">
+                    <div *ngIf="isLoading" class="loading">
+                        <p>Carregando dados do cliente...</p>
+                    </div>
+
+                    <div *ngIf="mensagem"
+                        [class]="tipoMensagem === 'sucesso' ? 'alert alert-success' : 'alert alert-danger'">
+                        {{ mensagem }}
+                    </div>
+
+                    <div *ngIf="cliente && !isLoading" class="cliente-form">
+
+                        <div class="info-section">
+                            <h3>Informações Pessoais</h3>
+
+                            <div class="form-group">
+                                <label for="name">Nome:</label>
+                                <input type="text" id="name" formControlName="name" class="form-control"
+                                    [class.is-invalid]="campoInvalido('name')">
+                                <div *ngIf="campoInvalido('name')" class="invalid-feedback">
+                                    {{ getMensagemErro('name') }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" formControlName="email" class="form-control" 
+                                    [class.is-invalid]="campoInvalido('email')">
+                                <div *ngIf="campoInvalido('email')" class="invalid-feedback">
+                                    {{ getMensagemErro('email') }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phoneNumber">Telefone:</label>
+                                <input mask="(00) 0 0000 0000"  type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control"
+                                    [class.is-invalid]="campoInvalido('phoneNumber')">
+                                <div *ngIf="campoInvalido('phoneNumber')" class="invalid-feedback">
+                                    {{ getMensagemErro('phoneNumber') }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="info-section">
+                            <h3>Plano e Assinatura</h3>
+
+                            <div class="form-group">
+                                <label for="planos">Plano:</label>
+                                <select id="planos" formControlName="planos" class="form-control">
+                                    <option value="">Selecione um plano</option>
+                                    <option value="Arcade">Arcade</option>
+                                    <option value="Advanced">Advanced</option>
+                                    <option value="Pro">Pro</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Serviços Adicionais:</label>
+                                <div class="addons-checkboxes">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" formControlName="addonServico">
+                                        Serviço Online
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" formControlName="addonEspaco">
+                                        Mais Espaço
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" formControlName="addonPerfil">
+                                        Perfil Customizável
+                                    </label>
+                                </div>
+
+                                <div class="addons-selecionados" [class.nenhum]="getAddonsSelecionados() === 'Nenhum'">
+                                    <small>
+                                        <strong>Addons selecionados:</strong>
+                                        {{ getAddonsSelecionados() }}
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" formControlName="isAnnual">
+                                    Plano Anual
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="info-section readonly">
+                            <h3>Informações do Sistema</h3>
+                            <div class="info-item">
+                                <label>ID:</label>
+                                <span class="small">{{ cliente._id }}</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Criado em:</label>
+                                <span>{{ cliente.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+                            </div>
+                            <div class="info-item" *ngIf="cliente.updatedAt">
+                                <label>Última atualização:</label>
+                                <span>{{ cliente.updatedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="!cliente && !isLoading" class="error">
+                        <p>Erro ao carregar dados do cliente.</p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="clienteForm.invalid || salvando">
+                        <span *ngIf="!salvando">Salvar Alterações</span>
+                        <span *ngIf="salvando">Salvando...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

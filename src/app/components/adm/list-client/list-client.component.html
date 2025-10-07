@@ -1,0 +1,74 @@
+<main class="admin-main">
+    <div class="main-header">
+        <h2>Lista de Clientes</h2>
+        <div class="client-count">
+            {{ clientesFiltrados.length }} de {{ clientes.length }} clientes
+        </div>
+    </div>
+    <div class="filtro-container">
+        <div class="filtro-inputs">
+            <input type="text" [(ngModel)]="filtroGeral" (input)="aplicarFiltros()"
+                placeholder="Buscar por nome, email ou telefone..." class="filtro-input">
+
+            <select [(ngModel)]="filtroPlano" (change)="aplicarFiltros()" class="filtro-select">
+                <option value="">Todos os planos</option>
+                <option value="Arcade">Arcade</option>
+                <option value="Advanced">Advanced</option>
+                <option value="Pro">Pro</option>
+            </select>
+
+            <button class="btn-limpar" (click)="limparFiltros()" *ngIf="temFiltroAtivo()">
+                Limpar
+            </button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="clients-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Plano</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cliente of clientesFiltrados">
+                    <td>{{ cliente.name || 'N/A' }}</td>
+                    <td style=" overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{ cliente.email || 'N/A'
+                        }}</td>
+                    <td>{{ formatPhone(cliente.phoneNumber) || 'N/A' }}</td>
+                    <td>
+                        <span class="plan-badge">{{ cliente.planos || 'Sem plano' }}</span>
+                    </td>
+                    <td class="actions">
+                        <button class="btn-view mr-3 mt-1" (click)="abrirModalView(cliente._id)">Ver</button>
+                        <button class="btn-edit mr-3 mt-1" (click)="abrirModalEdit(cliente._id)">Editar</button>
+                        <button class="btn-delete mr-3 mt-1 mb-1"
+                            (click)="abrirModalDelete(cliente._id, cliente.name)">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div *ngIf="clientesFiltrados.length === 0 && clientes.length > 0" class=" p-5 no-results">
+            <p>Nenhum cliente encontrado</p>
+        </div>
+
+        <div *ngIf="clientes.length === 0" class=" p-5 no-clients">
+            <p>Nenhum cliente cadastrado</p>
+        </div>
+    </div>
+
+    <app-view-client *ngIf="showViewModal" [clienteId]="selectedClienteId"
+        (close)="fecharModalView()"></app-view-client>
+    <app-edit-client *ngIf="showEditModal" [clienteId]="selectedClienteId" (close)="fecharModalEdit()"
+        (clienteAtualizado)="onClienteAtualizado()"></app-edit-client>
+    <app-delete-client *ngIf="clienteDeleteId" [clienteId]="clienteDeleteId" [clienteNome]="clienteDeleteNome"
+        (close)="fecharModalDelete()" (clienteDeletado)="onClienteDeletado()"></app-delete-client>
+
+    <div *ngIf="isLoading" class="loading">
+        Carregando...
+    </div>
+</main>

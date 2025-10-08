@@ -1,5 +1,5 @@
+//(PRODUÇÃO)
 export const environment = {
   production: true,
-  apiUrl: 'https://projeto-formulario-backend-production.up.railway.app'
-
+  apiUrl: process.env['API_URL']
 };
